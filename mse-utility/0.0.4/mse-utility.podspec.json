@@ -1,0 +1,85 @@
+{
+  "name": "mse-utility",
+  "version": "0.0.4",
+  "summary": "Cross platform utility for Meeting .",
+  "module_name": "MSEUtility",
+  "description": "Time, String, HTTP Download and some others\"",
+  "homepage": "http://www.webex.com/",
+  "license": "Copyright © 2012-2018 Webex",
+  "authors": {
+    "Palawan": "palawan@cisco.com"
+  },
+  "platforms": {
+    "ios": "11.0"
+  },
+  "source": {
+    "git": "ssh://git@bitbucket-eng-chn-sjc1.cisco.com:7999/cctgfork/webex-meetingservice-utility.git",
+    "branch": "feature/f9190"
+  },
+  "public_header_files": [
+    "src/include",
+    "src/include/catch"
+  ],
+  "source_files": [
+    "src/include/*.h",
+    "src/include/catch/*.hpp"
+  ],
+  "frameworks": "Foundation",
+  "requires_arc": true,
+  "prefix_header_file": "src/platform/ios/MSEUtility/MSEUtility_Prefix.pch",
+  "xcconfig": {
+    "OTHER_CPLUSPLUSFLAGS": "-fno-aligned-allocation -fmodules -fcxx-modules ",
+    "CLANG_CXX_LANGUAGE_STANDARD": "c++17",
+    "CLANG_CXX_LIBRARY": "libc++",
+    "OTHER_LDFLAGS": "-lObjC",
+    "GCC_INPUT_FILETYPE": "sourcecode.cpp.objcpp"
+  },
+  "dependencies": {
+    "AFNetworking": [
+      "~> 3.1"
+    ]
+  },
+  "subspecs": [
+    {
+      "name": "include",
+      "source_files": "src/include/**/*.{hpp,h}",
+      "public_header_files": [
+        "src/include/*.h",
+        "src/include/catch/*.hpp"
+      ]
+    },
+    {
+      "name": "common-function",
+      "source_files": "src/common-function/**/*.{pch,h,m,mm,cpp}",
+      "ios": {
+        "exclude_files": [
+          "src/common-function/win",
+          "src/common-function/unittest",
+          "src/common-function/mac"
+        ]
+      },
+      "dependencies": {
+        "mse-utility/include": [
+
+        ]
+      }
+    },
+    {
+      "name": "platform",
+      "source_files": "src/platform/ios/**/*.{pch,h,m,mm,cpp}",
+      "ios": {
+        "exclude_files": [
+          "src/platform/win",
+          "src/platform/mac",
+          "src/platform/ios/MSEUtility/frameworks",
+          "src/platform/ios/MSEUtilityTests"
+        ]
+      },
+      "dependencies": {
+        "mse-utility/include": [
+
+        ]
+      }
+    }
+  ]
+}
